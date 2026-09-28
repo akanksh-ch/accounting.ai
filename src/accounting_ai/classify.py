@@ -37,11 +37,7 @@ ACCOUNT_EXAMPLES = {
 
 @lru_cache(maxsize=1)
 def _load_classifier():
-    """Load the model and encode reference names once per process.
-
-    The first call downloads the model from Hugging Face if it is not cached.
-    CPU inference keeps this small model usable without a GPU.
-    """
+    """Load the model and encode reference names once per process."""
     model = SentenceTransformer(MODEL_NAME, device="cpu")
     labels = []
     examples = []
@@ -54,12 +50,7 @@ def _load_classifier():
 
 
 def classify_account(account_name: str) -> AccountType:
-    """Return the type of the most semantically similar reference account.
-
-    MiniLM is a general embedding model, not a trained accounting classifier.
-    This nearest-example prediction is a suggestion and may be inaccurate for
-    ambiguous or unfamiliar names. Blank names raise ValueError.
-    """
+    """Return the type of the most semantically similar reference account."""
     account_name = account_name.strip()
     if not account_name:
         raise ValueError("Account name must not be empty.")
