@@ -16,4 +16,5 @@ class AccountType(str, Enum):
 class LedgerItem(BaseModel):
     name: str
     entry_side: EntrySide
+    value: float
     account_type: Optional[AccountType] = None

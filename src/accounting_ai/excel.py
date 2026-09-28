@@ -3,21 +3,21 @@ from pathlib import Path
 from accounting_ai.types.ledger import LedgerItem
 
 
-def get_items_from_workbook(workbook_file: Path) -> List[LedgerItem]:
+def get_items_from_workbook(workbook_file: Path) -> list[LedgerItem]:
     wb = openpyxl.load_workbook(filename=workbook_file)
     ws = wb.worksheets[0]
     
     items = []
     
-    for row in ws.iter_rows(min_row=2):
-        account_name = row[0].internal_value
-        entry_side = ''
-        if row[1].internal_value == 'None': # i.e. it's a credit
+    for account_name, debit, credit in ws.iter_rows(min_row=2, max_col=3, values_only=True):
+        if debit in (None, '', 'None'):  # i.e. it's a credit
             entry_side = 'credit'
+            value = credit
         else:
             entry_side = 'debit'
+            value = debit
 
-        item = LedgerItem(name=account_name, entry_side=entry_side, account_type=None)
+        item = LedgerItem(name=account_name, entry_side=entry_side, account_type=None, value=float(value))
     
         items.append(item)
 
