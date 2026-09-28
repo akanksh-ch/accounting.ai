@@ -1,10 +1,11 @@
 import openpyxl
 from pathlib import Path
 from accounting_ai.types.ledger import LedgerItem
-from accounting_ai.classify import chat
+from accounting_ai.classify import classify_account
 
 
 def get_items_from_workbook(workbook_file: Path) -> list[LedgerItem]:
+    """Read the first worksheet's account amounts and classify each account name."""
     wb = openpyxl.load_workbook(filename=workbook_file)
     ws = wb.worksheets[0]
     
@@ -18,7 +19,7 @@ def get_items_from_workbook(workbook_file: Path) -> list[LedgerItem]:
             entry_side = 'debit'
             value = debit
             
-        account_type = chat(f'classify {account_name}')
+        account_type = classify_account(account_name)
 
         item = LedgerItem(name=account_name, entry_side=entry_side, account_type=account_type, value=float(value))
     
