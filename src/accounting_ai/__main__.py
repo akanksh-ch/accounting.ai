@@ -1,6 +1,7 @@
 import argparse
 from pathlib import Path
 from accounting_ai.excel import get_items_from_workbook
+from accounting_ai.build_report import build_report
 
 def main():
     parser = argparse.ArgumentParser(description="Generate Financial statements from Trial balance")
@@ -10,7 +11,10 @@ def main():
 
     args = parser.parse_args()
 
-    print(get_items_from_workbook(args.input)) 
+    items = get_items_from_workbook(args.input)
+    build_report(items, args.output)
+    
+    print(f'Financial statements saved to {args.output}')
 
 if __name__ == '__main__':
     main()
