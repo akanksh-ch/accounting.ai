@@ -1,0 +1,17 @@
+[project]
+name = "accounting-ai"
+version = "0.1.0"
+description = "Accounting done with AI"
+readme = "README.md"
+authors = [
+    { name = "Akanksh Chitimalla", email = "144524423+akanksh-ch@users.noreply.github.com" }
+]
+requires-python = ">=3.14"
+dependencies = []
+
+[project.scripts]
+accounting-ai = "accounting_ai:main"
+
+[build-system]
+requires = ["uv_build>=0.12.15,<0.13.0"]
+build-backend = "uv_build"
