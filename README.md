@@ -165,23 +165,6 @@ Classification settings currently live in [classify.py](src/accounting_ai/classi
 
 To adapt classification to your chart of accounts, add representative names to the appropriate category in `ACCOUNT_EXAMPLES`. Restart the command after editing; reference embeddings are cached for the lifetime of the process.
 
-## Project structure
-
-```mermaid
-flowchart TD
-    A[accounting.ai] --> B[src/accounting_ai]
-    A --> C[sample.xlsx]
-    A --> D[pyproject.toml]
-    A --> E[uv.lock]
-    A --> F[LICENSE]
-    B --> G[__main__.py: CLI and workflow]
-    B --> H[excel.py: Trial balance reader]
-    B --> I[classify.py: Account classification]
-    B --> J[build_report.py: Statement generation]
-    B --> K[types]
-    K --> L[ledger.py: Ledger model and enums]
-```
-
 ## Contributing
 
 [↑ Back to top](#accountingai)
