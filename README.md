@@ -19,20 +19,15 @@ Read an Excel workbook. Classify accounts. Generate statements.
 
 **accounting.ai** is a Python command-line project that turns a trial balance into a **Profit and Loss** statement and a **Statement of Financial Position**. It compares account names with reference examples using sentence embeddings, then groups the balances into formatted Excel worksheets.
 
-```text
-                         accounting.ai
-                              │
-  Trial balance (.xlsx) ───────┤
-                              ▼
-                    Classify account names
-                              │
-                 ┌────────────┴────────────┐
-                 ▼                         ▼
-          Profit and Loss          Statement of
-                                 Financial Position
-                 └────────────┬────────────┘
-                              ▼
-                   Financial statements (.xlsx)
+```mermaid
+flowchart TD
+    A[Trial balance Excel workbook] --> B[Read account names and balances]
+    B --> C[Classify accounts with MiniLM]
+    C --> D[Group accounts and calculate totals]
+    D --> E[Profit and Loss]
+    D --> F[Statement of Financial Position]
+    E --> G[Save financial statements to Excel]
+    F --> G
 ```
 
 > **Project status:** Early development. Account types are inferred from names; review the classifications and generated statements before relying on them.
@@ -172,19 +167,19 @@ To adapt classification to your chart of accounts, add representative names to t
 
 ## Project structure
 
-```text
-accounting.ai/
-├── src/accounting_ai/
-│   ├── __main__.py         # Command-line arguments and workflow
-│   ├── excel.py            # Trial balance reader
-│   ├── classify.py         # MiniLM account classification
-│   ├── build_report.py     # Statement generation and formatting
-│   └── types/
-│       └── ledger.py       # Ledger model and account enums
-├── sample.xlsx             # Example trial balance
-├── pyproject.toml          # Package metadata and dependencies
-├── uv.lock                 # Dependency lockfile
-└── LICENSE                 # GNU GPL v3
+```mermaid
+flowchart TD
+    A[accounting.ai] --> B[src/accounting_ai]
+    A --> C[sample.xlsx]
+    A --> D[pyproject.toml]
+    A --> E[uv.lock]
+    A --> F[LICENSE]
+    B --> G[__main__.py: CLI and workflow]
+    B --> H[excel.py: Trial balance reader]
+    B --> I[classify.py: Account classification]
+    B --> J[build_report.py: Statement generation]
+    B --> K[types]
+    K --> L[ledger.py: Ledger model and enums]
 ```
 
 ## Contributing
